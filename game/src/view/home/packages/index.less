@@ -1,0 +1,96 @@
+.package{
+    .package_btn{
+        height: 3.125rem;
+        .money{
+            display: flex;
+            position: absolute;
+            left: 0;
+            top: 0;
+            line-height:3.125rem;
+            text-indent: 1rem;
+        }
+        .package_close{
+            width: 5rem;
+            height: 2.5rem;
+            position: fixed;
+            right: 1rem;
+            top: .3rem;
+            border: .3rem solid rgb(184, 85, 27);
+            border-radius: 1.8rem;
+            box-shadow: 0rem 0rem .625rem rgb(117, 53, 16);
+            img{
+                width: 4.45rem;
+                height: 100%;
+                border-radius: 1rem;
+            }
+            div{
+                width: 100%;
+                height: 100%;
+                color: #b9b7b7;
+                position: absolute;
+                left: 0rem;
+                top: 0rem;
+                line-height: 2rem;
+            }
+        }
+    }
+    .package_role_info{
+        .package_info_box{
+            display: flex;
+            height: 15.75rem;
+            .package_left{
+                width: 30%;
+            }
+            .package_center{
+                width: 40%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                img{
+                    width: 90%;
+                }
+            }
+            .package_right{
+                width: 30%;
+            }
+            .package_equipment{
+                margin: 1.875rem auto;
+                img{
+                    width: 5rem;
+                    height: 5rem;
+                    border-radius: 1.25rem;
+                    border: .3rem solid rgb(184, 85, 27);
+                    box-shadow: 0rem 0rem .625rem rgb(117, 53, 16);
+                }
+            }
+        }
+    }
+    .package_goods{
+        .package_all{
+            width: 96%;
+            height: 16rem;
+            margin: 1.875rem auto;
+            border: .3125rem solid rgb(184, 85, 27);
+            border-radius: 1.25rem;
+            box-shadow: 0rem 0rem .625rem rgb(117, 53, 16);
+            overflow-y: scroll;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 0 .3125rem 0;
+            .package_box{
+                margin: .3rem;
+                img{
+                    width: 3rem;
+                    height: 3rem;
+                    border: .2rem solid rgb(184, 85, 27);
+                    border-radius: 1rem;
+                    box-shadow: 0rem 0rem .625rem rgb(117, 53, 16);
+                }
+            }
+        }
+    }
+}
+::-webkit-scrollbar{
+    display:none;
+}

@@ -5,16 +5,17 @@
       v-for="(item,index) in level"
       :key="index"
       @click="toBattle(index)"
-    >{{item}}</div>
+    >
+      <span>{{item}}</span>
+      <img
+        src="../../assets/小城.png"
+        alt
+      />
+    </div>
     <div
       v-if="battle"
-      class="battle-page"
+      class="battle_page"
     >
-      <button
-        v-if="close"
-        class="battle-btn"
-        @click="back"
-      >关闭</button>
       <div class="info">
         <masters
           :masterss='masterss'
@@ -25,11 +26,17 @@
         ></masters>
       </div>
     </div>
-    <button
+    <div
       v-if="!battle"
-      class="go-home"
+      class="go_home"
       @click="backHome"
-    >返回</button>
+    >
+      <img
+        src="../../assets/button.png"
+        alt
+      />
+      <div>返回</div>
+    </div>
   </div>
 </template>
 <script>
@@ -69,7 +76,7 @@ export default {
         }
       },
       close: false,
-      timeOut:null
+      timeOut: null
     };
   },
   components: {
@@ -117,14 +124,13 @@ export default {
     isgrade(e) {
       // console.log(this.level,'111111');
       // console.log(e,'e');
-      
+
+        this.close = false;
       if (e.status === "victory") {
-        this.close = true;
-        setTimeout(()=>{
+        setTimeout(() => {
           this.battle = false;
-          this.close = false;
-        },2000)
-        if(e.grade >= this.level.length){
+        }, 2000);
+        if (e.grade >= this.level.length) {
           this.checkpoint(1);
         }
       }
@@ -132,11 +138,11 @@ export default {
     checkpoint(save) {
       checkpoint({
         save,
-        username:'admin'
+        username: "admin"
       })
         .then(res => {
-          console.log(res,'res');
-          this.level = res.data.data
+          console.log(res, "res");
+          this.level = res.data.data;
         })
         .catch(err => {
           console.log(err);
@@ -153,49 +159,4 @@ export default {
   }
 };
 </script>
-<style lang="less" scoped>
-.secretPlace {
-  width: 600px;
-  height: 700px;
-  margin: 0 auto;
-  border: 1px solid black;
-  position: relative;
-  overflow-y: scroll;
-  .go-home {
-    position: fixed;
-    left: 181px;
-    top: 96px;
-  }
-  > div {
-    position: relative;
-    width: 100px;
-    height: 100px;
-    border: 1px solid black;
-    line-height: 100px;
-    text-align: center;
-    cursor: pointer;
-  }
-  .secret:nth-child(2n + 1) {
-    left: 100px;
-    top: 100px;
-  }
-  .secret:nth-child(2n) {
-    left: 400px;
-    top: 100px;
-  }
-  .battle-page {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    background: #ffffff;
-    left: 0;
-    top: 0;
-    .battle-btn {
-      position: absolute;
-      right: 35px;
-      top: 35px;
-      z-index: 9999;
-    }
-  }
-}
-</style>
+<style lang="less" scoped src="./index.less"></style>

@@ -36,7 +36,7 @@
           </el-input>
         </el-col>
       </el-form-item>
-      <el-form-item size="large">
+      <el-form-item size="large" class="form_btn" style="margin-left:-20px;"> 
         <el-button
           type="primary"
           @click="logins('form')"
@@ -147,9 +147,9 @@ export default {
             ...this.form
           })
             .then(res => {
+                const h = this.$createElement;
               if (res.status === 200) {
                 if (res.data.code === 0) {
-                  const h = this.$createElement;
                   this.$message({
                     message: h("p", null, [
                       h("span", null, "注册失败"),
@@ -157,7 +157,6 @@ export default {
                     ])
                   });
                 } else if (res.data.code === 1) {
-                  const h = this.$createElement;
                   this.$message({
                     message: h("p", null, [
                       h("span", null),
@@ -177,43 +176,47 @@ export default {
     }
   },
   created() {
-    // if (localStorage.getItem("login")) {
-    //     let userInfo = JSON.parse(localStorage.getItem("login"));
-    //     if (userInfo.login) {
-    //         let date = new Date().getTime();
-    //         let times = date - userInfo.date;
-    //         let time = parseInt(times / 1000 / 60 / 60 / 24);
-    //         if (time < 1) {
-    //             this.$router.push("/userRes");
-    //         } else {
-    //             let user = {
-    //                 username: userInfo.username,
-    //                 login: false,
-    //                 date: userInfo.date
-    //             };
-    //             localStorage.setItem("login", JSON.stringify(user));
-    //         }
-    //     }
-    // }
+    if (localStorage.getItem("login")) {
+        let userInfo = JSON.parse(localStorage.getItem("login"));
+        if (userInfo.login) {
+            let date = new Date().getTime();
+            let times = date - userInfo.date;
+            let time = parseInt(times / 1000 / 60 / 60 / 24);
+            if (time < 1) {
+                this.$router.push("/userRes");
+            } else {
+                let user = {
+                    username: userInfo.username,
+                    login: false,
+                    date: userInfo.date
+                };
+                localStorage.setItem("login", JSON.stringify(user));
+            }
+        }
+    }
   }
 };
 </script>
 <style lang="less" scoped>
 .login {
-  width: 600px;
-  height: 700px;
+  width: 100%;
+  height: 100vh;
   margin: 0 auto;
-  border: 1px solid black;
   position: relative;
   .login-form {
-    width: 400px;
-    height: 500px;
+    width: 80%;
+    height: 6rem;
     position: absolute;
     margin: auto;
     left: 0;
     top: 0;
     right: 0;
     bottom: 0;
+    .form_btn{
+      width: 100%;
+      height: 2.5rem;
+    }
   }
 }
+
 </style>

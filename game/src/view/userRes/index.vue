@@ -10,6 +10,7 @@
       <el-form-item
         label="玩家昵称"
         prop="playname"
+        :rules="rules"
       >
         <el-col :span="20">
           <el-input
@@ -75,6 +76,13 @@ export default {
         sex: "男",
         family: "仙"
       },
+      rules: [
+        {
+          required: true,
+          message: "名称不能为空",
+          trigger: "blur"
+        }
+      ],
       race: ["仙", "魔", "妖", "佛", "鬼", "人"],
       choose: true,
       sex: "少年"
@@ -87,6 +95,7 @@ export default {
         if (valid) {
           if (this.form.playname.length !== 0) {
             this.choose = false;
+
             if (this.form.sex === "男") {
               this.sex = "少年";
             } else {
@@ -108,7 +117,7 @@ export default {
         username: username,
         ...this.form
       })
-        .then(res => {  
+        .then(res => {
           const h = this.$createElement;
           if (res.status === 200) {
             if (res.data.code === 1) {
@@ -140,11 +149,11 @@ export default {
 </script>
 <style lang="less" scoped>
 .user-res {
-  width: 600px;
-  height: 700px;
+  width: 100%;
+  height: 100vh;
   margin: 0 auto;
-  border: 1px solid black;
   position: relative;
+  font-size: 20px;
   .role-form {
     width: 70%;
     height: 70%;
@@ -157,10 +166,10 @@ export default {
     .el-form-item {
       // height: 25%;
       box-sizing: border-box;
-      padding-top: 50px;
+      padding-top: 3.125rem;
     }
     .el-button {
-      margin-top: 50px;
+      margin-top: 3.125rem;
     }
   }
   .text {
@@ -168,7 +177,7 @@ export default {
     .text-content {
       &:nth-child(1) {
         height: 70%;
-        line-height: 300px;
+        line-height: 18.75rem;
       }
       &:nth-child(2) {
         height: 30%;

@@ -1,78 +1,188 @@
+.interface {
+  width: 100%;
+  height: 100vh;
+  margin: 0 auto;
+  position: relative;
+  background: linear-gradient(to right, rgb(219, 194, 111), rgb(221, 166, 104));
 
-.jiemian{
-    width: 600px;
-    height: 700px;
-    margin: 0 auto;
-    border: 1px solid black;
-    .info{
-        display: flex;
-        width: 100%;
-        height: 70px;
-        .roleInfo{
-            width: 70px;
-            height: 70px;
-            line-height: 70px;
-            // border: 1px solid black;
-            cursor: pointer;
-            img{
-                width: 70px;
-                height: 70px;
-                border-radius: 50%;
-            }
-        }
-        .elseInfo{
-            width:420px;
-            height: 70px;
-            display: flex;
-            margin: 0 auto;
-            line-height: 35px;
-            text-align: left;
-            .xInfo{
-                width: 50%;
+  .info {
+    width: 100%;
+    height: 5rem;
 
-            }
-            .xue,.lan{
-                width: 96%;
-                height: 94%;
-                margin: auto;
-                position: relative;
-            }
-            .xue{
-                background: red;
-            }
-            .lan{
-                background: blue;
-            }
-            .is-role1{
-                height: 100%;
-                position: absolute;
-                right:0;    
-                background: white;
-                width:0;
-            }
-            .is-role{
-                height: 100%;
-                position: absolute;
-                right:0;    
-                background: white;
-                width:0;
-            }
-            .xue-box{
-                width: 150px;
-                height: 30px;
-            }
-            .xue-text{
-                width: 80px;
-                height: 30px;
-                text-align: center;
-            }
-        }
-    }
-    .to-secret-place{
-        width: 50px;
-        height:50px;
-        line-height: 50px;
-        text-align: center;
+    .info_box {
+      display: flex;
+      width: 90%;
+      height: 4.375rem;
+      margin: auto;
+      padding-top: .625rem;
+
+      .roleInfo {
+        width: 3.375rem;
+        height: 3.375rem;
+        line-height: 4.375rem;
         cursor: pointer;
+
+        img {
+          width: 3.375rem;
+          height: 3.375rem;
+          border-radius: 50%;
+        }
+      }
+
+      .elseInfo {
+        margin: 0 auto;
+        line-height: 2.1875rem;
+        text-align: left;
+
+        .xue,
+        .lan,
+        .yellow {
+          width: 96%;
+          height: 94%;
+          margin: auto;
+          position: relative;
+        }
+
+        .is-role {
+          height: 100%;
+          position: absolute;
+          right: 0;
+          background: white;
+          width: 0;
+        }
+
+        .xue_box {
+          width: 9.375rem;
+          height: 33%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .xue-text {
+          width: 5rem;
+          height: 1.875rem;
+          text-align: center;
+        }
+
+        .content {
+          width: 90%;
+          height: .5rem;
+          border-radius: 15px;
+        }
+
+        .red_content {
+          background: linear-gradient(to right, rgb(255, 102, 102), rgb(255, 0, 0));
+          box-shadow: .1875rem .25rem .625rem #7a0303;
+          border: 1px solid #520303;
+        }
+
+        .blue_content {
+          background: linear-gradient(to right, rgb(93, 93, 243), rgb(0, 0, 255));
+          box-shadow: .1875rem .25rem .625rem rgb(3, 3, 117);
+          border: 1px solid rgba(16, 16, 119, 0.637);
+        }
+
+        .yellow_content {
+          background: linear-gradient(to right, rgb(243, 221, 93), rgb(255, 208, 0));
+          box-shadow: .1875rem .25rem .625rem rgb(129, 117, 5);
+          border: 1px solid rgba(95, 82, 6, 0.637);
+        }
+      }
+      .xInfo{
+        font-size: .8rem;
+      }
     }
+  }
+
+  .go_home {
+    width: 4.7625rem;
+    height: 1.85rem;
+    position: fixed;
+    right: 1rem;
+    top: 5rem;
+    z-index: 100;
+
+    img {
+      width: 4.7625rem;
+      height: 1.85rem;
+    }
+
+    div {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: rgb(73, 68, 68);
+      line-height: 1.85rem;
+    }
+  }
+
+  .role {
+    position: absolute;
+    left: 0;
+    top: 5rem;
+    width: 100%;
+    height: 29rem;
+    background: linear-gradient(to right, rgb(219, 194, 111), rgb(221, 166, 104));
+    z-index: 99;
+  }
+
+  .interface_content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 1.875rem;
+    font-size: 1.25rem;
+    position: relative;
+
+    .to_secret_place {
+      width: 6.25rem;
+      height: 6.25rem;
+      font-size: 1rem;
+      position: absolute;
+
+      // line-height: 3.125rem;
+      // border: .3125rem solid rgb(194, 97, 7);
+      // text-align: center;
+      // cursor: pointer;
+      // color: rgb(194, 97, 7);;
+      // border-radius: 1.5625rem;
+      img {
+        width: 6.25rem;
+        height: 6.25rem;
+      }
+
+      .place_two {
+        border-radius: 50%;
+      }
+    }
+
+    .one {
+      left: 2.75rem;
+      top: 0rem;
+    }
+
+    .two {
+      left: 10.75rem;
+      top: 4rem;
+    }
+
+    .three {
+      left: 3.75rem;
+      top: 11rem;
+    }
+    .four {
+      left: 10.75rem;
+      top: 15rem;
+    }
+  }
+
+  .home_packages {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: linear-gradient(to right, rgb(219, 194, 111), rgb(221, 166, 104));
+  }
 }

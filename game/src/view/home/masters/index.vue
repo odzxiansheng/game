@@ -1,14 +1,14 @@
 <template>
   <div class="battle">
     <div class="role">
-      <div>等级:{{role.grade.value}}</div>
+      <div>角色</div>
       <div style="display:flex;">
         <div style="display:flex;">
-          <div class="xue-text">血量:</div>
+          <!-- <div class="xue-text">血量:</div> -->
           <div class="xue-box">
             <div class="xue">
               <div class="is-role111">
-                {{role.vitality.value}}
+                <!-- {{role.vitality.value}} -->
               </div>
             </div>
           </div>
@@ -20,14 +20,14 @@
       :key="key"
     >
       <div class="master">
-        <div>等级:{{item.grade.value}}</div>
+        <div>怪物</div>
         <div style="display:flex;">
           <div style="display:flex;">
-            <div class="xue-text">血量:</div>
+            <!-- <div class="xue-text">血量:</div> -->
             <div class="xue-box">
               <div class="xue">
                 <div class="is-master">
-                  {{item.vitality.value}}
+                  <!-- {{item.vitality.value}} -->
                 </div>
               </div>
             </div>
