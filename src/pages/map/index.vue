@@ -1,7 +1,7 @@
 <template>
 	<div>
     <div  v-for=" (item,index) in mapList" :key="item.id">
-      <div class="map-card"v-if="item.onOff"  @click="start(item,index,1)">
+      <div class="map-card"v-if="item.onOff"  @click="start(item,index,2)">
         <div class="is-ing">历练中 <span v-if="time > 0">第{{time}}年</span></div>
         <div class="map-name">{{item.name}}</div>
         <div class="map-item">
@@ -9,14 +9,14 @@
           <span class="master-goods" v-for="v in item.goods" :key="v.id" >{{v.name}}</span>
         </div>
       </div>
-      <div class="map-card" v-else @click="start(item,index)">
+      <div class="map-card" v-else @click="start(item,index,1)">
         <div class="map-name">{{item.name}}</div>
         <div class="map-item">
           <span class="get">掉落</span>
           <span class="master-goods" v-for="v in item.goods" :key="v.id" >{{v.name}}</span>
         </div>
       </div>
-      <div class="ware-place" v-if="userInfo && userInfo.lifeValue && item.onOff" @click="start(item,index,1)">
+      <div class="ware-place" v-if="userInfo && userInfo.lifeValue && item.onOff" @click="start(item,index,2)">
         <div class="self">
           <div class="self-img"></div>
           <div class="self-attr">
@@ -66,6 +66,7 @@ export default {
         width: "100%",
       },
       timer: null,
+      again:true
     };
   },
   mounted() {
@@ -161,13 +162,18 @@ export default {
       if (life < 0) life = 0;
       // 页面展示的宽度
       userLife.width = (life / user.lifeValue) * 100 + "%";
-      // masterLife.width = userLife.width;
     },
     // 点击小地图开始挂机
     start(item, index, onOff) {
       this.master = item.masterList[0];
       this.timeData = this.$Utils.localDate({ name: "startTime" }) || {};
-      if (onOff) {
+      if(onOff == 1){
+        this.again = true;
+      }
+      console.log('--------------------------------------onOff--------------------------------------------------------------');
+      console.log(onOff);
+      if (onOff == 2) {
+        this.again = false;
         // 结束 获得物品
         item.onOff = false;
         let isTrue = Math.random() < item.probability;
@@ -190,11 +196,6 @@ export default {
       this.timeShow(item, index, onOff);
     },
     timeShow(item, index, onOff) {
-      if (onOff) {
-        this.$Utils.localDate({ name: "startTime", type: "remove" });
-        this.clearTime();
-        return;
-      }
       this.master = item.masterList[0];
       this.master.now = this.master.lifeValue;
       this.setMaster(index);
@@ -207,6 +208,12 @@ export default {
       }
       let endTime = time;
       this.timer = setInterval(() => {
+        if (!this.again) {
+          this.$Utils.localDate({ name: "startTime", type: "remove" });
+          item.onOff = false;
+          this.clearTime();
+          return;
+        }
         endTime = endTime + 1000;
         let ime = this.$Utils.setTime(time, endTime);
         this.time = ime.dateText.toFixed(0);
