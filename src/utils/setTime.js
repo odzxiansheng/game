@@ -52,7 +52,7 @@ const setJSON = (data) => {
 const addFood = (data = []) => {
   let food = [], foodData = {};
   if (data.length) {
-     data.map((v, k) => {
+    data.map((v, k) => {
       if (["materialScience"].includes(v.type)) {
         if (!foodData.id) {
           foodData = setJSON(v)

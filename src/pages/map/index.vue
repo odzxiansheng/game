@@ -125,24 +125,26 @@ export default {
         }, 400);
       }
     },
+    // 得到物品
      getGoods(v) {
       console.log("getGoods",v);
       let num = Math.random();
-      // if(v.probability <= num){
-      v.id = this.$Utils.setID( this.userInfo.bage);
-      if (!this.userInfo.bage) {
-        this.userInfo.bage = [];
+      if(v.probability <= num){
+        v.id = this.$Utils.setID( this.userInfo.bage);
+        if (!this.userInfo.bage) {
+          this.userInfo.bage = [];
+        }
+        // if (v.id) {
+        this.userInfo.bage.push(v);
+        this.userInfo.bage = this.$Utils.addFood(this.userInfo.bage);
       }
-      // if (v.id) {
-      this.userInfo.bage.push(v);
-		  this.userInfo.bage = this.$Utils.addFood(this.userInfo.bage);
-      // }
       this.userInfo.getExperience += this.master.experience - 0;
       this.$Utils.localDate({
         name: "userInfo",
         data: this.userInfo,
       });
     },
+    // 战斗后的血量
     getResult(user, master, life) {
       // 玩家/怪物 战斗后的生命值
       user.now = user.now - master.aggressivity;
@@ -150,6 +152,7 @@ export default {
       let result = user.now / user.lifeValue;
       life.width = result * 100 + "%";
     },
+    // 设置血量
     setLifeValue(user, userLife) {
       // 获取 玩家/怪物 当前生命值比例
       let width = userLife.width.split("%")[0] / 100;
@@ -160,6 +163,7 @@ export default {
       userLife.width = (life / user.lifeValue) * 100 + "%";
       // masterLife.width = userLife.width;
     },
+    // 点击小地图开始挂机
     start(item, index, onOff) {
       this.master = item.masterList[0];
       this.timeData = this.$Utils.localDate({ name: "startTime" }) || {};

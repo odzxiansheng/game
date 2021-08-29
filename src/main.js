@@ -3,7 +3,7 @@ import App from './App'
 
 Vue.config.productionTip = false
 import Utils from './utils/setTime';
-import UI from './utils/tip';
+import UI from './utils/ui';
 import request from './request';
 import bottomBat from './component/bottom-bat.vue';
 Vue.prototype.$Utils = Utils;
