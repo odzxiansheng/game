@@ -1,0 +1,40 @@
+{
+	"pages": [
+		{
+			"path": "pages/home/index",
+			"style": {
+				"navigationBarTitleText": "任务创建"
+			}
+		},
+		{
+			"path": "pages/role/index",
+			"style": {
+				"navigationBarTitleText": "人物"
+			}
+		},
+		{
+			"path": "pages/bag/index",
+			"style": {
+				"navigationBarTitleText": "背包"
+			}
+		},
+		{
+			"path": "pages/forging/index",
+			"style": {
+				"navigationBarTitleText": "锻造"
+			}
+		},
+		{
+			"path": "pages/map/index",
+			"style": {
+				"navigationBarTitleText": "地图"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	}
+}
