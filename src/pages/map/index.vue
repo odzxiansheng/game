@@ -51,6 +51,7 @@ export default {
       master: {
         lifeValue: 50, // 生命值
         aggressivity: 10,
+        getExperience:1,
         now: 50,
       },
       user: {
@@ -136,7 +137,7 @@ export default {
       this.userInfo.bage.push(v);
 		  this.userInfo.bage = this.$Utils.addFood(this.userInfo.bage);
       // }
-      this.userInfo.getExperience += this.master.getExperience - 0;
+      this.userInfo.getExperience += this.master.experience - 0;
       this.$Utils.localDate({
         name: "userInfo",
         data: this.userInfo,
