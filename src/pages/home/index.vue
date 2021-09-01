@@ -28,15 +28,13 @@ export default {
         this.$UI.tip("请输入名称");
         return;
       }
-      this.$Utils.localDate({
-        name: "userInfo",
-        data: {
+      let data = {
           name:this.name,
           aggressivity: 10,
           defensivePower: 5,
           lifeValue: 50,
           experience: 100,
-          getExperience: 300,
+          getExperience: 0,
           aggressivity:10, // 攻击力
           defensivePower:5, // 防御力
           lifeValue:50, // 生命值
@@ -45,8 +43,8 @@ export default {
           combatEffectiveness: 10 + 5 + 50 / 10,
           ID:'0000000',
           type:1
-        },
-      });
+      }
+      this.$Utils.localDate('userInfo',data);
       uni.redirectTo({
         url: "/pages/role/index",
       });

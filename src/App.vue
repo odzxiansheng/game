@@ -1,7 +1,7 @@
 <script>
 export default {
   onLaunch: function () {
-    let userInfo = this.$Utils.localDate({ name: "userInfo" }) || null;
+    let userInfo = this.$Utils.localDate('userInfo') || null;
     if (userInfo) {
       uni.redirectTo({
         url: "/pages/role/index",

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App'
 
 Vue.config.productionTip = false
-import Utils from './utils/setTime';
+import Utils from './utils/utils';
 import UI from './utils/ui';
 import request from './request';
 import bottomBat from './component/bottom-bat.vue';

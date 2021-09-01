@@ -1,7 +1,7 @@
 export const mixins = {
   data() {
     return {
-      userInfo: this.$Utils.localDate({ name: "userInfo" }) || null,
+      userInfo: this.$Utils.localDate('userInfo') || null,
     }
   },
   methods: {
@@ -35,9 +35,7 @@ export const mixins = {
             2:'后期',
             3:'大圆满'
           }
-          experience = i === 0 && j === 0 ? 
-            experience : j === 0 ? 
-            experience * 2 :  experience * 1.2
+          experience = i === 0 && j === 0 ? experience : j === 0 ? experience * 2 : experience * 1.2
           let stateInfo = {
             stateText:list[i] + states[j],
             id:info.length + 1,

@@ -5,17 +5,17 @@
         <div class="blood-volume">
           <div class="show-blood-volume">
             <div class="get-show-blood-volume" :style="bloodVolume"></div>
+            <span class="blood-volume-text">{{bloodVolume.width}}</span>
           </div>
         </div>
     </div>
+    <div class="role-box">
+        <div class="role-img" ></div>
+    </div>
     <div class="ware-window">
-      <div v-if="showGetExperience" class="start-ger" @click="startGet">开始修炼</div>
-      <div v-else>
-        <div class="blood-volume">
-          <div class="show-blood-volume">
-            <div class="get-show-blood-volume" :style="getExper"></div>
-            <div @click="stop">停止</div>
-          </div>
+      <div class="blood-volume">
+        <div class="show-blood-volume">
+          <div class="get-show-blood-volume" :style="getExper"></div>
         </div>
       </div>
     </div>
@@ -47,20 +47,16 @@ export default {
       },
       userInfo: {},
       showInfo: false,
-      showGetExperience: true,
       getExper: {
         width: "0%",
       },
       time: null,
-      practice:{}
+      lastTimeData:{}
     };
   },
   computed: {
     bloodVolume() {
-      let experience = (
-        (this.role.getExperience / this.role.experience) *
-        100
-      ).toFixed(2);
+      let experience = ((this.role.getExperience / this.role.experience) * 100).toFixed(2);
       if (experience > 100) {
         experience = 100;
       }
@@ -69,63 +65,61 @@ export default {
       };
     },
   },
-  watch: {
-    // 开始修炼界面
-    showGetExperience(val) {
-      if (!val) {
-        this.startTime();
-        return
-      }
-      this.stopTime();
-    },
-  },
   onShow() {
-    this.practice = this.$Utils.localDate({ name: "practice" }) || null;
-    this.userInfo = this.$Utils.localDate({ name: "userInfo" }) || null;
-    this.setUserInfo();
-    if (!this.showGetExperience) {
-      this.stopTime();
-      this.startTime();
-    } else {
-      this.stopTime();
-    }
-  },
-  mixins: [mixins],
-  onLoad() {
-    if (!this.userInfo) {
+    this.userInfo = this.$Utils.localDate('userInfo') || {};
+    this.lastTimeData = this.$Utils.localDate('lastTimeData') || {};
+    if (!this.userInfo?.name) {
       uni.redirectTo({
         url: "/pages/home/index",
       });
       return;
     }
+    // 进入页面计算经验
+    if(this.lastTimeData.time){
+      let time = new Date().getTime();
+      this.userInfo.getExperience += (time - this.lastTimeData.time)/5000 * this.lastTimeData.grade;
+      this.userInfo.getExperience = this.userInfo.getExperience.toFixed(0) - 0;
+      this.$Utils.localDate('userInfo',this.userInfo);
+      this.$Utils.localDate('lastTimeData',{})
+    }
+    // 角色赋值
     this.setUserInfo();
+    this.startTime();
   },
+  mixins: [mixins],
   onHide() {
     this.stopTime();
+    this.setWareTime(1);
   },
   methods: {
+    // 重置缓存时间
+    setWareTime(grade = 1){
+      let time = new Date().getTime();
+      let data = {
+        time,
+        grade
+      }
+      this.$Utils.localDate('lastTimeData',data)
+    },
     setGrade() {
       if (this.role.getExperience >= this.role.experience) {
-        this.showGetExperience = true;
-        this.stopTime();
         // 升级
         this.getGrade();
         return
       }
       this.$UI.tip('经验不足,无法升级');
     },
+    // 角色赋值
     setUserInfo() {
-      let userInfo = this.$Utils.localDate({ name: "userInfo" }) || null;
+      this.userInfo = this.$Utils.localDate('userInfo') || {};
       for (const key in this.role) {
-        this.role[key] = userInfo[key];
+        this.role[key] = this.userInfo[key];
       }
     },
     getGrade() {
-      let userInfo = this.$Utils.localDate({ name: "userInfo" }) || null;
+      let userInfo = this.$Utils.localDate('userInfo') || null;
       let list = this.setStatte();
       let index = list.findIndex((v) => v.stateText === userInfo.state);
-      console.log(userInfo);
-      console.log(list);
       if (index == -1 || index >= list.length) return;
       userInfo.state = list[index + 1].stateText;
       userInfo.getExperience = userInfo.getExperience - userInfo.experience;
@@ -146,28 +140,12 @@ export default {
       if (userInfo.type > 4) {
         userInfo.type = 1;
       }
-      this.$Utils.localDate({
-        name: "userInfo",
-        data: userInfo,
-      });
+      this.$Utils.localDate('userInfo',userInfo);
       this.setUserInfo(userInfo);
     },
     getExperience() {
-      let userInfo = this.$Utils.localDate({ name: "userInfo" }) || null;
-      this.$Utils.localDate({
-        name: "userInfo",
-        data: userInfo,
-      });
-    },
-    // 开始修炼
-    startGet() {
-      this.showGetExperience = false;
-      this.$Utils.localDate({ name: "practice" ,data:{}})
-    },
-    // 停止修炼
-    stop() {
-      this.showGetExperience = true;
-      this.stopTime();
+      let userInfo = this.$Utils.localDate('userInfo') || null;
+      this.$Utils.localDate('userInfo',userInfo);
     },
     stopTime() {
       console.log( '定时器停止');
@@ -178,12 +156,14 @@ export default {
     },
     startTime() {
       console.log( '定时器开启');
-      this.practice = true;
       this.time = setInterval(() => {
+        this.userInfo = this.$Utils.localDate('userInfo') || {};
         let getExper = this.getExper.width.split("%")[0] - 0;
-        this.userInfo.getExperience += 1;
-        this.$Utils.localDate({ name: "userInfo" ,data:this.userInfo})
-        this.setUserInfo()
+        if(getExper == 100){
+          this.userInfo.getExperience += 1;
+          this.$Utils.localDate( "userInfo" ,this.userInfo)
+          this.setUserInfo();
+        }
         if (getExper >= 100) {
           this.getExper.width = "0%";
         } else {
@@ -212,11 +192,32 @@ export default {
         height: 30upx;
         border-radius: 15upx;
         border: 2upx solid black;
+        position: relative;
         .get-show-blood-volume {
           background: chartreuse;
           height: 30upx;
         }
+        .blood-volume-text{
+          position: absolute;
+          top: 0;
+          right: 10upx;
+          font-size: 20upx;
+          line-height: 27.2upx;
+        }
+        
       }
+    }
+  }
+  .role-box{
+    width: 100%;
+    margin: 100upx auto;
+    text-align: center;
+    .role-img{
+      width: 415upx;
+      height: 348upx;
+      background: url('./image/role.png');
+      background-size: 100% 100%;
+      margin: auto;
     }
   }
   .ware-window {
@@ -224,11 +225,9 @@ export default {
     width: 90%;
     margin: 20upx auto;
     height: 180upx;
-    border: 1px solid #ccc;
     border-radius: 20upx;
     display: flex;
     align-items: center;
-    box-shadow: 2upx 2upx 2upx #ccc;
     text-align: center;
     .start-ger {
       width: 100%;

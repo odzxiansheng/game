@@ -11,20 +11,23 @@ const setTime = (startDate = null, endDate = null) => {
     dateText
   }
 }
-const localDate = ({ name, data = null, type = 'get' }) => {
+const localDate = (name, data = null) => {
   let returnData = {};
   if (!name) {
     throw new Error('请设置缓存名称')
   }
-  if (type === 'remove') {
-    localStorage.removeItem(name)
-    return
-  }
   if (data) {
-    localStorage.setItem(name, JSON.stringify(data))
+    if(typeof data == 'object'){
+      data = JSON.stringify(data)
+    }
+    localStorage.setItem(name, data)
     return
   }
-  returnData = JSON.parse(localStorage.getItem(name))
+  let getData = localStorage.getItem(name) || '';
+  if(!getData){
+    localStorage.setItem(name, null)
+  }
+  returnData = getData.includes('{'||'[') ? JSON.parse(getData) : localStorage.getItem(name)
   return returnData
 }
 /**

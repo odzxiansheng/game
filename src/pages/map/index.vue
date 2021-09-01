@@ -46,7 +46,7 @@ export default {
     return {
       time: null,
       timer: null,
-      timeData: this.$Utils.localDate({ name: "startTime" }) || {},
+      timeData: this.$Utils.localDate('startTime') || {},
       mapList,
       master: {
         lifeValue: 50, // 生命值
@@ -140,10 +140,7 @@ export default {
         this.userInfo.bage = this.$Utils.addFood(this.userInfo.bage);
       }
       this.userInfo.getExperience += this.master.experience - 0;
-      this.$Utils.localDate({
-        name: "userInfo",
-        data: this.userInfo,
-      });
+      this.$Utils.localDate('userInfo',this.userInfo);
     },
     // 战斗后的血量
     getResult(user, master, life) {
@@ -166,12 +163,10 @@ export default {
     // 点击小地图开始挂机
     start(item, index, onOff) {
       this.master = item.masterList[0];
-      this.timeData = this.$Utils.localDate({ name: "startTime" }) || {};
+      this.timeData = this.$Utils.localDate('startTime') || {};
       if(onOff == 1){
         this.again = true;
       }
-      console.log('--------------------------------------onOff--------------------------------------------------------------');
-      console.log(onOff);
       if (onOff == 2) {
         this.again = false;
         // 结束 获得物品
@@ -186,7 +181,7 @@ export default {
             }
           });
         }
-        this.$Utils.localDate({ name: "startTime", type: "remove" });
+        this.$Utils.localDate('startTime',null);
         this.clearTime();
         return;
       }
@@ -201,15 +196,16 @@ export default {
       this.setMaster(index);
       let time = new Date().getTime();
       if (!this.timeData.time) {
-        this.$Utils.localDate({
-          name: "startTime",
-          data: { time: time, id: item.id },
-        });
+        let data = {
+          time: time, 
+          id: item.id 
+        }
+        this.$Utils.localDate('startTime',data);
       }
       let endTime = time;
       this.timer = setInterval(() => {
         if (!this.again) {
-          this.$Utils.localDate({ name: "startTime", type: "remove" });
+          this.$Utils.localDate('startTime',null);
           item.onOff = false;
           this.clearTime();
           return;
