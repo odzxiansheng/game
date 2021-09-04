@@ -74,10 +74,48 @@ const addFood = (data = []) => {
   return food
 }
 
+const isFalse = (data) =>{
+  return data != null && data != undefined;
+}
+const isObject = (data = {}) =>{
+  return typeof data == 'object' && !data.length
+}
+const isArray = (data = []) =>{
+  return typeof data == 'object' && data.length
+}
+//  身拷贝
+const setData = (data) => {
+  if(data){
+    if(isFalse(data) && isArray(data)){
+      data = setJSON(data);
+      if(data.length){
+        for (let i = 0; i < data.length; i++) {
+          data[i] = setData(data[i]);
+        }
+      }else{
+        data = []
+      }
+    }else if(isFalse(data) && isObject(data)){
+      data = setJSON(data);
+      if(Object.keys(data).length){
+        for (const key in data) {
+          data[key] = setData(data[key]);
+        }
+      }else{
+        data = {}
+      }
+    }
+  }else{
+    data = null
+  }
+  return data
+}
+
 export default {
   setTime,
   localDate,
   setID,
   setJSON,
   addFood,
+  setData
 }

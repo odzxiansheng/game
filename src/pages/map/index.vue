@@ -1,7 +1,7 @@
 <template>
 	<div>
     <div  v-for=" (item,index) in mapList" :key="item.id">
-      <div class="map-card"v-if="item.onOff"  @click="start(item,index,2)">
+      <div class="map-card" v-if="item.onOff"  @click="start(item,index,2)">
         <div class="is-ing">历练中 <span v-if="time > 0">第{{time}}年</span></div>
         <div class="map-name">{{item.name}}</div>
         <div class="map-item">

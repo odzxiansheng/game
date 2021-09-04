@@ -1,13 +1,13 @@
 <template>
-  <div class="box-page">
-		<div class="box-width" v-for="item in list" :key="item.id" @click="chooseMaterialScience(item)">
+  <div class="box-page"  @click.stop="bagShow = false">
+		<div class="box-width" v-for="item in list" :key="item.id" @click.stop="chooseMaterialScience(item)">
 			{{item.text}}
 		</div>
-		<div class="box-width" @click="addMaterialScience">合成</div>
+		<div class="box-width" @click.stop="addMaterialScience">合成</div>
 		<div class="btn">
-			<div class="item-btn" @click="add('equipment')">装备</div>
-			<div class="item-btn" @click="add('singleDrug')">灵药</div>
-			<div class="item-btn" @click="add('materialScience')">材料</div>
+			<div class="item-btn" @click.stop="add('equipment')">装备</div>
+			<div class="item-btn" @click.stop="add('singleDrug')">灵药</div>
+			<div class="item-btn" @click.stop="add('materialScience')">材料</div>
 			<!-- <div class="item-btn" @click="add('materialScience')">强化</div> -->
 		</div>
 		<div class="box" v-if="bagShow">
@@ -22,8 +22,13 @@ import { mixins } from "../../common/mixins";
 export default {
   mixins: [mixins],
   created() {
-    let bag = this.userInfo.bage || [];
-    this.bagList = this.$Utils.setJSON(bag);
+    // let bag = this.userInfo.bage || [];
+    // this.bagList = this.$Utils.setJSON(bag);
+    // this.oldList = Object.assign({},this.list);
+    // this.oldBagList = Object.assign({},this.bagList);
+    
+      this.oldList = this.$Utils.setData(this.list);
+      this.oldBagList = this.$Utils.setData(this.bagList);
   },
   data() {
     return {
@@ -52,36 +57,45 @@ export default {
       ],
       item: null,
       bagList: [],
-      type:'equipment'
+      type:'equipment',
+      oldList:[],
+      oldBagList:[],
     };
   },
   methods: {
-    add(type) {
-      switch (type) {
-        case "equipment":
-          break;
-        case "singleDrug":
-          break;
-        case "materialScience":
-          this.type = 'materialScience'
-          break;
-
-        default:
-          break;
-      }
+    // 还原
+    setInit(){
+      this.list = this.$Utils.setData(this.oldList);
+      this.bagList = this.$Utils.setData(this.oldBagList);
     },
-    // 选择材料
+    add(type) {
+      this.list = Object.assign([],this.oldList);
+      this.setInit();
+      this.userInfo = this.$Utils.localDate('userInfo') || null;
+      this.type = type;
+      if(this.userInfo.bage){
+        let list = this.userInfo.bage.filter(v=>v.type == type) || [];
+      this.bagList = this.$Utils.setData(list);
+      }
+      this.oldBagList = this.$Utils.setData(this.bagList);
+    },
+    // 材料放入某一项
     chooseMaterialScience(item) {
       this.bagShow = true;
       this.item = item;
-      console.log(this.item);
     },
+    // 选择材料
     chooseer(item) {
       this.list.map((v) => {
         if (v.id === this.item.id) {
           v.text = item.name;
         }
       });
+      this.bagList.map((v,k)=>{
+        if (v.id === item.id ) {
+          v.num--
+        }
+      })
       this.bagShow = false;
     },
     addMaterialScience() {
@@ -95,7 +109,6 @@ export default {
           if (list.length < 5) {
             this.$UI.tip("合成成功");
             // v.id = this.$Utils.setID( this.userInfo.bage);
-            console.log(this.userInfo.bage);
           } else {
             this.$UI.tip("材料不足");
           }

@@ -176,13 +176,21 @@ export default {
 </script>
 
 <style scoped lang="less">
+page{
+  width: 100%;
+  height: 100%;
+  background-image: url('./image/bg.png'); 
+  background-size: 100% 100%;
+}
 .content {
   .info {
     display: flex;
     .img {
       width: 80upx;
       height: 80upx;
-      border: 2upx solid red;
+      margin: 20upx 0 0 20upx;
+      background-image: url('./image/user.png'); 
+      background-size: 100% 100%;
     }
     .blood-volume {
       height: 100%;

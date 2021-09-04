@@ -31,7 +31,7 @@ const UI = {
       mask: true
     })
   },
-  loading() {
+  hideLoading() {
     uni.hideLoading();
   }
 }
