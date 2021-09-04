@@ -1,5 +1,6 @@
 <template>
   <div class="btn">
+    <div class="btn-item" @click="to('info')">个人信息</div>
     <div class="btn-item" @click="to('bag')">背包</div>
     <div class="btn-item" @click="to('forging')">锻造</div>
     <!-- <div class="btn-item" @click="to('forging')">宠物</div> -->
@@ -12,6 +13,9 @@ export default {
   methods: {
     to(type) {
       switch (type) {
+        case "info":
+          type = "/pages/role/index";
+          break;
         case "bag":
           type = "/pages/bag/index";
           break;
@@ -37,15 +41,17 @@ export default {
   position: fixed;
   bottom: 0;
   width: 100%;
+  height: 100upx;
   display: flex;
   justify-content: space-around;
   .btn-item {
     width: 30%;
     height: 80upx;
     line-height: 80upx;
-    background: greenyellow;
-    border-radius: 10upx;
+    background-image: url('./imaage/btn.png');
+    background-size: 100% 100%;
     text-align: center;
+    color: #fff;
   }
 }
 </style>

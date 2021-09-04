@@ -35,6 +35,7 @@
         </div>
       </div>
     </div>
+    <bottom-bat></bottom-bat>
 	</div>
 </template>
 <script>

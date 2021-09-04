@@ -174,18 +174,11 @@ export default {
   },
 };
 </script>
-
 <style scoped lang="less">
-page{
-  width: 100%;
-  height: 100%;
-  background-image: url('./image/bg.png'); 
-  background-size: 100% 100%;
-}
 .content {
   .info {
     display: flex;
-    .img {
+    .img { 
       width: 80upx;
       height: 80upx;
       margin: 20upx 0 0 20upx;
@@ -194,15 +187,16 @@ page{
     }
     .blood-volume {
       height: 100%;
-      margin: auto 20upx;
+      margin: 50upx 20upx 0;
       .show-blood-volume {
         width: 200upx;
         height: 30upx;
         border-radius: 15upx;
-        border: 2upx solid black;
+        background-image: url('./image/groove.png');
         position: relative;
         .get-show-blood-volume {
-          background: chartreuse;
+          background-image: url('./image/groove_content.png');
+          border-radius: 15upx;
           height: 30upx;
         }
         .blood-volume-text{
@@ -250,10 +244,11 @@ page{
         width: 200upx;
         height: 30upx;
         border-radius: 15upx;
-        border: 2upx solid black;
+        background-image: url('./image/groove.png');
         margin: auto;
         .get-show-blood-volume {
-          background: chartreuse;
+          background-image: url('./image/groove_content.png');
+          border-radius: 15upx;
           height: 30upx;
         }
       }
