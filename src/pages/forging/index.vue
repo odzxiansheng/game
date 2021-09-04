@@ -1,15 +1,15 @@
 <template>
   <div class="box-page"  @click.stop="bagShow = false">
-		<div class="box-width" v-for="item in list" :key="item.id" @click.stop="chooseMaterialScience(item)">
-			{{item.text}}
-		</div>
-		<div class="box-width" @click.stop="addMaterialScience">合成</div>
 		<div class="btn">
 			<div class="item-btn" @click.stop="add('equipment')">装备</div>
 			<div class="item-btn" @click.stop="add('singleDrug')">灵药</div>
 			<div class="item-btn" @click.stop="add('materialScience')">材料</div>
 			<!-- <div class="item-btn" @click="add('materialScience')">强化</div> -->
 		</div>
+		<div class="box-width" v-for="item in list" :key="item.id" @click.stop="chooseMaterialScience(item)">
+			{{item.text}}
+		</div>
+		<div class="box-width" @click.stop="addMaterialScience">合成</div>
 		<div class="box" v-if="bagShow">
 			<div class="box-width" v-for="item in bagList" :key="item.id" @click="chooseer(item)">
 				{{item.name}} X {{item.num  }}
@@ -127,19 +127,6 @@ export default {
 </script>
 <style scoped lang="less">
 .box-page {
-  .box-width {
-    height: 120upx;
-    margin: 20upx;
-    border: 1px solid #ccc;
-    border-radius: 20upx;
-    box-shadow: 2upx 2upx 2upx #ccc;
-    line-height: 120upx;
-    padding: 0 50upx;
-  }
-  .btn {
-    display: flex;
-    justify-content: space-around;
-  }
   .box {
     width: 80%;
     height: 80%;
@@ -160,6 +147,19 @@ export default {
       line-height: 120upx;
       padding: 0 50upx;
     }
+  }
+  .box-width {
+    height: 120upx;
+    margin: 20upx;
+    border: 1px solid #ccc;
+    border-radius: 20upx;
+    box-shadow: 2upx 2upx 2upx #ccc;
+    line-height: 120upx;
+    padding: 0 50upx;
+  }
+  .btn {
+    display: flex;
+    justify-content: space-around;
   }
   .item-btn {
     width: 25%;

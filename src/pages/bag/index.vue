@@ -1,14 +1,21 @@
 <template>
   <div class="bag-page">
 		<div class="bag-role">
-			<div class="">
-				<img class="img" :src="userDara.arms">
-				<img class="img" :src="userDara.clothes">
-				<img class="img" :src="userDara.trousers">
-				<img class="img" :src="userDara.shoes">
+			<div class="role-box">
+				<div class="role-left">
+					<div v-if="!userDara.arms" class="img"></div>
+					<img v-else class="img" :src="userDara.trousers">
+					<div v-if="!userDara.clothes" class="img"></div>
+					<img v-else class="img" :src="userDara.shoes">
+				</div>
+				<div></div>
+				<div class="role-right">
+					<div v-if="!userDara.trousers" class="img"></div>
+					<img v-else class="img" :src="userDara.trousers">
+					<div v-if="!userDara.shoes" class="img"></div>
+					<img v-else class="img" :src="userDara.shoes">
+				</div>
 			</div>
-			<div></div>
-			<div></div>
 		</div>
 		<div class="bag-big-box">
 			<div class="btn-box" v-for=" item in btnList" :key="item.id" @click="chooseBag(item)">
@@ -66,7 +73,6 @@ export default {
 			}
 			this.list.push(obj)
 		}
-		console.log(this.list);
 	},
 	methods:{
 		chooseBag(item){
@@ -85,11 +91,33 @@ export default {
 		background-image: url("./image/bag_meta.png");
 		background-size: 100% 100%;
 		.bag-role{
-			height: 300upx;
+			height: 600upx;
+			.role-box{
+				width: 80%;
+				margin: 0 auto;
+				padding-top: 140upx;
+				display: flex;
+				.role-left, .role-right{
+					width: 30%;
+					height: 300upx;
+					margin: 0 auto;
+					display: flex;
+					flex-direction: column;
+					justify-content: space-between;
+					align-items: center;
+					.img{
+						width: 100upx;
+						height: 100upx;
+						background-image: url("./image/box.png");
+						background-size: 100% 100%;
+					}
+				}
+			}
 		}
 		.bag-big-box{
 			width: 80%;
-			margin: 300upx auto;
+			margin: 0 auto;
+			box-sizing: border-box;
 			display: flex;
 			flex-wrap: wrap;
 		}
@@ -110,7 +138,11 @@ export default {
 				text-align: center;
 				line-height: 60upx;
 				font-size: 28upx;
-				color: rgb(250, 236, 236);
+				/* 文字渐变 */
+				background-image: linear-gradient(#fff,#b1b1b1);
+				background-clip:text;
+				-webkit-background-clip:text;
+				color: transparent;
 			}
 			.btn-active{
 				color: rgb(178, 170, 250);

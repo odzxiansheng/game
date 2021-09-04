@@ -1,5 +1,5 @@
 <template>
-  <div class="content"  @click="showInfo = false">
+  <div class="content">
     <div class="info">
         <div class="img"  @click.stop="showInfo = !showInfo"></div>
         <div class="blood-volume">
@@ -21,13 +21,15 @@
     </div>
     <bottom-bat></bottom-bat>
     <div class="info-window" v-if="showInfo">
-      <div class="title">名字：{{ role.name }}</div>
-      <div class="title">ID：{{ role.ID }}</div>
-      <div class="title">境界：{{ role.state }}</div>
-      <div class="title">经验：{{role.getExperience}}/{{ role.experience }} 
+      <div class="close"   @click="showInfo = false"></div>
+      <div class="title first">名字：<span class="text">{{ role.name }}</span></div>
+      <div class="title">ID：<span class="text">{{ role.ID }}</span></div>
+      <div class="title">境界：<span class="text">{{ role.state }}</span></div>
+      <div class="title">经验：
+        <span class="text">{{role.getExperience}}/{{ role.experience }}</span> 
         <span @click.stop="setGrade" style="margin-left:10px;color:blue;">升级</span>
       </div>
-      <div class="title">战力：{{ role.combatEffectiveness }}</div>
+      <div class="title">战力：<span class="text">{{ role.combatEffectiveness }}</span></div>
     </div>
   </div>
 </template>
@@ -234,7 +236,11 @@ export default {
     .start-ger {
       width: 100%;
       line-height: 200upx;
-      color: blue;
+      background-image: linear-gradient( to bottom, #fff, #0000ff);
+      background-clip:text;
+      -webkit-background-clip:text;
+      color: transparent;
+      text-shadow: 2upx 2upx 2upx #0000ff80;
     }
     .blood-volume {
       width: 100%;
@@ -255,17 +261,46 @@ export default {
     }
   }
   .info-window {
-    width: 70%;
-    height: 70%;
+    width: 600upx;
+    height: 903upx;
     border: 4upx solid red;
-    border-radius: 20upx;
     position: fixed;
     left: 0;
     top: 0;
     right: 0;
     bottom: 0;
-    background: #fff;
+    background-image: url('./image/info_meta.png');
+    background-size: 100% 100%;
     margin: auto;
+    .close{
+      position: absolute;
+      right: 24upx;
+      top: 4upx;
+      width: 55upx;
+      height: 55upx;
+      background-image: url('./image/close.png');
+      background-size: 100% 100%;
+    }
+    .title{
+        font-size: 40upx;
+        margin-left: 40upx;
+				/* 文字渐变 */
+				background-image: linear-gradient( to bottom, #fff,#ffff52, #ff8d00);
+				background-clip:text;
+				-webkit-background-clip:text;
+				color: transparent;
+				text-shadow: 2upx 2upx 2upx #ffff52;
+        .text{
+          background-image: linear-gradient( to bottom, #fff, #000);
+          background-clip:text;
+          -webkit-background-clip:text;
+          color: transparent;
+          text-shadow: 2upx 2upx 2upx rgba(0, 0, 0, 0.493);
+        }
+    }
+    .first{
+        margin-top: 80upx;
+    }
   }
 }
 </style>
