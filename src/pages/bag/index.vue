@@ -124,6 +124,7 @@ export default {
 		.btn-box{
 			display: flex;
 			position: relative;
+			max-height: 12u0px;
 			.btn-img{
 				width: 150upx;
 				height: 60upx;
@@ -138,14 +139,15 @@ export default {
 				text-align: center;
 				line-height: 60upx;
 				font-size: 28upx;
-				/* 文字渐变 */
-				background-image: linear-gradient(#fff,#b1b1b1);
-				background-clip:text;
-				-webkit-background-clip:text;
-				color: transparent;
+				color: #fff;
 			}
 			.btn-active{
-				color: rgb(178, 170, 250);
+				/* 文字渐变 */
+					background-image: linear-gradient(to bottom, #fff, #ffff52, #ff8d00);
+					background-clip: text;
+					-webkit-background-clip: text;
+					color: transparent;
+					text-shadow: 2upx 2upx 2upx #ffff52;
 			}
 		}
 		.bag-box{
